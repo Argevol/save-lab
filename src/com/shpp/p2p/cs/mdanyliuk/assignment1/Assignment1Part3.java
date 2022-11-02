@@ -5,20 +5,25 @@ import com.shpp.karel.KarelTheRobot;
 public class Assignment1Part3 extends KarelTheRobot {
     public void run() throws Exception {
         fillLineWithBeepers();
+        pickUpAllBeepers();
+        turnAroundAndMove();
+        putBeeper();
+    }
+
+    private void pickUpAllBeepers() throws Exception{
         turnAroundAndMove();
         while (beepersPresent()) {
             moveToEnd();
             returnToBeeper();
         }
-        putBeeper();
     }
 
     private void fillLineWithBeepers() throws Exception{
+        move();
         while (frontIsClear()){
-            move();
             putBeeper();
+            move();
         }
-        pickBeeper();
     }
 
     private void turnAroundAndMove() throws Exception{

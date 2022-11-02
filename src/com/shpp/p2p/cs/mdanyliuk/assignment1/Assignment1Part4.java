@@ -4,54 +4,59 @@ import com.shpp.karel.KarelTheRobot;
 
 public class Assignment1Part4 extends KarelTheRobot {
     public void run() throws Exception {
-        goToBeeper();
-        pickBeeper();
-        returnToStartPosition();
+        fillFirstLine();
+        while (frontIsClear()){
+            fillSecondLine();
+            fillFirstLine();
+        }
     }
 
-    private void goToBeeper() throws Exception{
-        turnRight();
-        goUntilFindBeeper();
+    private void fillFirstLine() throws Exception {
+        fillLineInChessOrder();
+        if(noBeepersPresent()){
+            move();
+            turnLeft();
+        } else {
+            move();
+            turnLeft();
+            move();
+        }
+    }
+
+
+    private void fillSecondLine() throws Exception {
+        fillLineInChessOrder();
+        if(noBeepersPresent()){
+            move();
+            turnRight();
+        } else {
+            move();
+            turnRight();
+            move();
+        }
+    }
+
+    private void fillLineInChessOrder() throws Exception {
+        putBeeper();
+        while (frontIsClear()) {
+            move();
+            if (frontIsClear()) {
+                move();
+                putBeeper();
+            }
+        }
+        turnNorth();
+    }
+
+    private void turnNorth() throws Exception{
+        while (notFacingNorth()){
+            turnLeft();
+        }
     }
 
     private void turnRight() throws Exception{
-        turnLeft();
-        turnLeft();
-        turnLeft();
-    }
-
-    private void goUntilFindBeeper() throws Exception {
-        makeStepAndTurnLeft();
-        while (noBeepersPresent()) {
-            move();
-        }
-    }
-
-    private void makeStepAndTurnLeft() throws Exception{
-        move();
-        turnLeft();
-    }
-
-    private void returnToStartPosition() throws Exception{
-        moveUntilFindWall();
-        goToPosition();
-    }
-
-    private void moveUntilFindWall() throws Exception{
-        turnAround();
-        while(frontIsClear()){
-            move();
-        }
-    }
-
-    private void turnAround() throws Exception{
-        turnLeft();
-        turnLeft();
-    }
-
-    private void goToPosition() throws Exception{
-        turnRight();
-        move();
-        turnRight();
+       turnLeft();
+       turnLeft();
+       turnLeft();
     }
 }
